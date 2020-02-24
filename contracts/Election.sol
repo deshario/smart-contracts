@@ -9,6 +9,7 @@ contract Election{
     }
 
     mapping(uint => Candidate) public candidates;
+    mapping(address => bool) public voters; // Store accounts that voted
 
     uint public candidatesCount;
 
@@ -20,6 +21,15 @@ contract Election{
     function addCandidate(string memory mName) private {
         candidatesCount++;
         candidates[candidatesCount] = Candidate(candidatesCount,mName,0);
+    }
+
+    function vote(uint candidateId) public {
+        // require that they havent vote before
+        // Validating candidate
+        require(!voters[msg.sender], "Invalid Voter");
+        require(candidateId > 0 && candidateId <= candidatesCount, 'Vote Hacked');
+        voters[msg.sender] = true; // record the voter has voted
+        candidates[candidateId].voteCount++;
     }
 
 }
