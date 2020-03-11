@@ -2,6 +2,10 @@ pragma solidity >=0.4.21 <0.7.0;
 
 contract Election{
 
+    event votedEvent (
+        uint indexed candidateId
+    );
+
     struct Candidate{
         uint id;
         string name;
@@ -27,9 +31,10 @@ contract Election{
         // require that they havent vote before
         // Validating candidate
         require(!voters[msg.sender], "Invalid Voter");
-        require(candidateId > 0 && candidateId <= candidatesCount, 'Vote Hacked');
+        require(candidateId > 0 && candidateId <= candidatesCount, 'Invalid Vote');
         voters[msg.sender] = true; // record the voter has voted
         candidates[candidateId].voteCount++;
+        emit votedEvent(candidateId);
     }
 
 }
