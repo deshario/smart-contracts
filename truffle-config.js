@@ -5,7 +5,7 @@ module.exports = {
   // to customize your Truffle configuration!
   contracts_build_directory: path.join(__dirname, "client/src/contracts"),
   networks: {
-    develop: { // truffle
+    develop: { // Truffle
       port: 8545
     },
     ganache: { // Ganache
