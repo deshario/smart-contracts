@@ -3,8 +3,6 @@ import ItemManagerContract from "./contracts/ItemManager.json";
 import ItemContract from "./contracts/Item.json";
 import getWeb3 from "./getWeb3";
 
-import "./App.css";
-
 class App extends Component {
   state = {loaded:false, cost:0, itemName:'example1'};
 
@@ -55,8 +53,10 @@ class App extends Component {
 
   handleSubmit = async() => {
     const { cost, itemName } = this.state;
-    await this.itemManager.methods.createItem(itemName,cost).send({from : this.accounts[0]});
+    let result = await this.itemManager.methods.createItem(itemName,cost).send({from : this.accounts[0]});
+    console.log('Result : ',result);
   }
+  // contract.methods.createItem('deshario',100).send({from:'0xf5369091918eb26557e68a9045622d153cac2a30'}).then(console.log)
 
   render() {
     if (!this.state.loaded) {
@@ -64,7 +64,7 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <h1>Event Trigger / Supply Chain</h1>
+        {/* <h1>Event Trigger / Supply Chain</h1> */}
         <h2>Items</h2>
         <h2>Add Items</h2>
         Cost in wei : <input type='text' name='cost' value={this.state.cost} onChange={this.handleInputChange}/>
